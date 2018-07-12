@@ -21,19 +21,21 @@ namespace BSA_2018_Homework_4.Controllers
 		[HttpGet("{id}")]
 		public string Get(int id)
 		{
-			return "value";
+			return "ee";
 		}
 
 		// POST: api/Flight
 		[HttpPost]
 		public void Post([FromBody]string value)
 		{
+			
 		}
 
 		// PUT: api/Flight/5
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody]string value)
 		{
+		
 		}
 
 		// DELETE: api/Flight/5
