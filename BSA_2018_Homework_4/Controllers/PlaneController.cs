@@ -4,43 +4,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BSA_2018_Homework_4.BL.ServiceInterfaces;
+using BSA_2018_Homework_4.DTOs;
 
 namespace BSA_2018_Homework_4.Controllers
 {
-    //[Produces("application/json")]
     [Route("api/Plane")]
     public class PlaneController : Controller
     {
+		private IPlaneService planeService;
+
+		public PlaneController(IPlaneService planeService)
+		{
+			this.planeService = planeService;
+		}
+
         // GET: api/Plane
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<PlaneDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+			return planeService.GetPlaneCollection();
         }
 
         // GET: api/Plane/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PlaneDTO Get(int id)
         {
-            return "value";
+            return planeService.GetPlaneById(id);
         }
         
         // POST: api/Plane
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]PlaneDTO plane)
         {
+			planeService.CreatePlane(plane);
         }
         
         // PUT: api/Plane/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]PlaneDTO plane)
         {
+			planeService.UpdatePlane(id, plane);
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+			planeService.DeletePlaneById(id);
         }
     }
 }

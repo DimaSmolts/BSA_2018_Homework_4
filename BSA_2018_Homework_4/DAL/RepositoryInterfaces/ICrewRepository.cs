@@ -6,9 +6,9 @@ using BSA_2018_Homework_4.DAL.Models;
 
 namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
-    interface ICrewRepository
+	public interface ICrewRepository
     {
-		IEnumerable<Crew> GetAll();
+		List<Crew> GetAll();
 		Crew Get(int id);
 		void Delete(int id);
 		void Create(Crew item);

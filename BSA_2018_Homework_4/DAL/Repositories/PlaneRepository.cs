@@ -11,54 +11,54 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 {
     public class PlaneRepository : IPlaneRepository
     {
-		private List<Plane> crews = new List<Plane>();
+		private List<Plane> planes = new List<Plane>();
 
 		public PlaneRepository()
 		{
 			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\planes.json"))
 			{
 				JsonSerializer serializer = new JsonSerializer();
-				crews = (List<Plane>)serializer.Deserialize(file, typeof(List<Plane>));
+				planes = (List<Plane>)serializer.Deserialize(file, typeof(List<Plane>));
 			}
 		}
 
 		public void SaveChanges()
 		{
 			File.WriteAllText(Environment.CurrentDirectory + @"\Data\planes.json",
-				JsonConvert.SerializeObject(crews));
+				JsonConvert.SerializeObject(planes));
 		}
 
-		public IEnumerable<Plane> GetAll()
+		public List<Plane> GetAll()
 		{
-			return crews;
+			return planes;
 		}
 
 		public Plane Get(int id)
 		{
-			return crews.First(t => t.Id == id);
+			return planes.First(t => t.Id == id);
 		}
 
 		public void Delete(int id)
 		{
-			Plane temp = crews.FirstOrDefault(t => t.Id == id);
+			Plane temp = planes.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
-				crews.Remove(temp);
+				planes.Remove(temp);
 			SaveChanges();
 		}
 
 		public void Create(Plane item)
 		{
-			crews.Add(item);
+			planes.Add(item);
 			SaveChanges();
 		}
 
 		public void Update(int id, Plane item)
 		{
-			Plane temp = crews.Find(t => t.Id == id);
+			Plane temp = planes.Find(t => t.Id == id);
 			if (temp != null)
 			{
-				crews.Remove(temp);
-				crews.Add(item);
+				planes.Remove(temp);
+				planes.Add(item);
 			}
 			SaveChanges();
 		}

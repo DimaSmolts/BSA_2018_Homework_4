@@ -6,9 +6,9 @@ using BSA_2018_Homework_4.DAL.Models;
 
 namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
-    interface ITicketRepository
+	public interface ITicketRepository
     {
-		IEnumerable<Ticket> GetAll();
+		List<Ticket> GetAll();
 		Ticket Get(int id);
 		void Delete(int id);
 		void Create(Ticket item);

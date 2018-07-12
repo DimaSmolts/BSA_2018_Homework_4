@@ -6,9 +6,9 @@ using BSA_2018_Homework_4.DAL.Models;
 
 namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
-    interface IPlaneRepository
+    public interface IPlaneRepository
     {
-		IEnumerable<Plane> GetAll();
+		List<Plane> GetAll();
 		Plane Get(int id);
 		void Delete(int id);
 		void Create(Plane item);

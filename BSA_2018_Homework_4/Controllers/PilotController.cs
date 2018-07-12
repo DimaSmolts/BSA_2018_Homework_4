@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BSA_2018_Homework_4.BL.ServiceInterfaces;
+using BSA_2018_Homework_4.DTOs;
 
 namespace BSA_2018_Homework_4.Controllers
 {
@@ -11,36 +13,46 @@ namespace BSA_2018_Homework_4.Controllers
     [Route("api/Pilot")]
     public class PilotController : Controller
     {
+		private IPilotService pilotService;
+
+		public PilotController(IPilotService pilotService)
+		{
+			this.pilotService = pilotService;
+		}
+
         // GET: api/Pilot
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<PilotDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+			return pilotService.GetPilotCollection();
         }
 
         // GET: api/Pilot/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PilotDTO Get(int id)
         {
-            return "value";
+            return pilotService.GetPilotById(id);
         }
         
         // POST: api/Pilot
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]PilotDTO pilot)
         {
+			pilotService.CreatePilot(pilot);
         }
         
         // PUT: api/Pilot/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]PilotDTO pilot)
         {
+			pilotService.UpdatePilot(id, pilot);
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+			pilotService.DeletePilotById(id);
         }
     }
 }

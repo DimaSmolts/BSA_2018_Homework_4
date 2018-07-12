@@ -28,7 +28,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 				JsonConvert.SerializeObject(planetypes));
 		}
 
-		public IEnumerable<PlaneType> GetAll()
+		public List<PlaneType> GetAll()
 		{
 			return planetypes;
 		}

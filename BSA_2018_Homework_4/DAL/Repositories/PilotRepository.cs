@@ -28,7 +28,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 				JsonConvert.SerializeObject(pilots));
 		}
 
-		public IEnumerable<Pilot> GetAll()
+		public List<Pilot> GetAll()
 		{
 			return pilots;
 		}

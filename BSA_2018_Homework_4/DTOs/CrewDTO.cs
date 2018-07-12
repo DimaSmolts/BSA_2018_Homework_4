@@ -9,6 +9,6 @@ namespace BSA_2018_Homework_4.DTOs
     {
 		public int Id { get; set; }
 		public int PilotId { get; set; }
-		public List<int> StewardessIds { get; set; }
+		public int[] StewardessIds { get; set; }
 	}
 }

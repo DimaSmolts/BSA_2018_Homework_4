@@ -28,7 +28,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 				JsonConvert.SerializeObject(tickets));
 		}
 
-		public IEnumerable<Ticket> GetAll()
+		public List<Ticket> GetAll()
 		{
 			return tickets;
 		}

@@ -4,43 +4,56 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BSA_2018_Homework_4.BL.ServiceInterfaces;
+using BSA_2018_Homework_4.DTOs;
 
 namespace BSA_2018_Homework_4.Controllers
 {
-    [Produces("application/json")]
+    //[Produces("application/json")]
     [Route("api/PlaneType")]
     public class PlaneTypeController : Controller
     {
+		private IPlaneTypeService planeTypeService;
+
+		public PlaneTypeController(IPlaneTypeService planeTypeService)
+		{
+			this.planeTypeService = planeTypeService;
+
+		}
+
         // GET: api/PlaneType
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<PlaneTypeDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+            return planeTypeService.GetPlaneTypeCollection();
         }
 
         // GET: api/PlaneType/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PlaneTypeDTO Get(int id)
         {
-            return "value";
+            return planeTypeService.GetPlaneTypeById(id);
         }
         
         // POST: api/PlaneType
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]PlaneTypeDTO planeType)
         {
+			planeTypeService.CreatePlaneType(planeType);
         }
         
         // PUT: api/PlaneType/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]PlaneTypeDTO planeType)
         {
+			planeTypeService.UpdatePlaneType(id, planeType);
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+			planeTypeService.DeletePlaneType(id);
         }
     }
 }

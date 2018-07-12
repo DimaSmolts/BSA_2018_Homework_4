@@ -28,7 +28,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 				JsonConvert.SerializeObject(crews));
 		}
 
-		public IEnumerable<Crew> GetAll()
+		public List<Crew> GetAll()
 		{
 			return crews;
 		}

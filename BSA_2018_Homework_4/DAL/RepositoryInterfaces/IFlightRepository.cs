@@ -8,7 +8,7 @@ namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
     public interface IFlightRepository
     {
-		IEnumerable<Flight> GetAll();
+		List<Flight> GetAll();
 		Flight Get(int id);
 		void Delete(int id);
 		void Create(Flight item);

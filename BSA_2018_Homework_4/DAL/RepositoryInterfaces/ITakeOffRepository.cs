@@ -6,9 +6,9 @@ using BSA_2018_Homework_4.DAL.Models;
 
 namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
-    interface ITakeOffRepository
+	public interface ITakeOffRepository
     {
-		IEnumerable<TakeOff> GetAll();
+		List<TakeOff> GetAll();
 		TakeOff Get(int id);
 		void Delete(int id);
 		void Create(TakeOff item);

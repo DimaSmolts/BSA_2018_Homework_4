@@ -6,9 +6,9 @@ using BSA_2018_Homework_4.DAL.Models;
 
 namespace BSA_2018_Homework_4.DAL.RepositoryInterfaces
 {
-    interface IStewardessRepository
+	public interface IStewardessRepository
     {
-		IEnumerable<Stewardess> GetAll();
+		List<Stewardess> GetAll();
 		Stewardess Get(int id);
 		void Delete(int id);
 		void Create(Stewardess item);
