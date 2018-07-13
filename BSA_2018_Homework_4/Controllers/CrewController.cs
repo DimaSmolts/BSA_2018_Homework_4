@@ -24,29 +24,60 @@ namespace BSA_2018_Homework_4.Controllers
         [HttpGet]
         public IEnumerable<CrewDTO> Get()
         {
-            return crewService.GetCrewCollection();
-        }
+			IEnumerable<CrewDTO> temp = crewService.GetCrewCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
 
         // GET: api/Crew/5
         [HttpGet("{id}")]
         public CrewDTO Get(int id)
         {
-            return crewService.GetCrewById(id);
+            CrewDTO temp = crewService.GetCrewById(id);
+
+			if (temp != null)			
+				Response.StatusCode = 200;			
+			else			
+				Response.StatusCode = 404;
+
+			return temp; 
+			
         }
         
         // POST: api/Crew
         [HttpPost]
         public void Post([FromBody]CrewDTO crew)
         {
-			crewService.CreateCrew(crew);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				crewService.CreateCrew(crew);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}		
         }
         
         // PUT: api/Crew/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]CrewDTO crew)
         {
-			crewService.UpdateCrew(id, crew);
-        }
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				crewService.UpdateCrew(id, crew);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}
+		}
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

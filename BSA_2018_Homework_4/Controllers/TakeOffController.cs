@@ -24,28 +24,58 @@ namespace BSA_2018_Homework_4.Controllers
         [HttpGet]
         public IEnumerable<TakeOffDTO> Get()
         {
-            return takeOffService.GetTakeOffCollection();
-        }
+            IEnumerable<TakeOffDTO> temp = takeOffService.GetTakeOffCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
 
         // GET: api/TakeOff/5
         [HttpGet("{id}")]
         public TakeOffDTO Get(int id)
         {
-            return takeOffService.GetTakeOffById(id);
-        }
+            TakeOffDTO temp = takeOffService.GetTakeOffById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
         
         // POST: api/TakeOff
         [HttpPost]
         public void Post([FromBody]TakeOffDTO takeOff)
         {
-			takeOffService.CreateTakeOff(takeOff);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				takeOffService.CreateTakeOff(takeOff);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // PUT: api/TakeOff/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]TakeOffDTO takeOff)
         {
-			takeOffService.UpdateTakeOff(id, takeOff);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				takeOffService.UpdateTakeOff(id, takeOff);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // DELETE: api/ApiWithActions/5

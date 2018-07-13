@@ -23,28 +23,58 @@ namespace BSA_2018_Homework_4.Controllers
 		[HttpGet]
 		public IEnumerable<FlightDTO> Get()
 		{
-			return flightService.GetFlightCollection();
+			IEnumerable<FlightDTO> temp = flightService.GetFlightCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
 		}
 
 		// GET: api/Flight/5
 		[HttpGet("{id}")]
 		public FlightDTO Get(int id)
 		{
-			return flightService.GetFlightById(id);
+			FlightDTO temp = flightService.GetFlightById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
 		}
 
 		// POST: api/Flight
 		[HttpPost]
 		public void Post([FromBody]FlightDTO flight)
 		{
-			flightService.CreateFlight(flight);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				flightService.CreateFlight(flight);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
 		}
 
 		// PUT: api/Flight/5
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody]FlightDTO flight)
 		{
-			flightService.UpdateFlight(id, flight);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				flightService.UpdateFlight(id, flight);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}
 		}
 
 		// DELETE: api/Flight/5

@@ -24,28 +24,58 @@ namespace BSA_2018_Homework_4.Controllers
         [HttpGet]
         public IEnumerable<PilotDTO> Get()
         {
-			return pilotService.GetPilotCollection();
+			IEnumerable<PilotDTO> temp = pilotService.GetPilotCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
         }
 
         // GET: api/Pilot/5
         [HttpGet("{id}")]
         public PilotDTO Get(int id)
         {
-            return pilotService.GetPilotById(id);
-        }
+            PilotDTO temp = pilotService.GetPilotById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
         
         // POST: api/Pilot
         [HttpPost]
         public void Post([FromBody]PilotDTO pilot)
         {
-			pilotService.CreatePilot(pilot);
-        }
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				pilotService.CreatePilot(pilot);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}
+		}
         
         // PUT: api/Pilot/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]PilotDTO pilot)
         {
-			pilotService.UpdatePilot(id, pilot);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				pilotService.UpdatePilot(id, pilot);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}		
         }
         
         // DELETE: api/ApiWithActions/5

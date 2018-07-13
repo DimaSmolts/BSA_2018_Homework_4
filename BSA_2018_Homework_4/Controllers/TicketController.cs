@@ -23,28 +23,58 @@ namespace BSA_2018_Homework_4.Controllers
         [HttpGet]
         public IEnumerable<TicketDTO> Get()
         {
-            return ticketService.GetTicketCollection();
-        }
+            IEnumerable<TicketDTO> temp = ticketService.GetTicketCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
 
         // GET: api/Ticket/5
         [HttpGet("{id}")]
         public TicketDTO Get(int id)
         {
-            return ticketService.GetTicketById(id);
-        }
+            TicketDTO temp = ticketService.GetTicketById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
         
         // POST: api/Ticket
         [HttpPost]
         public void Post([FromBody]TicketDTO ticket)
         {
-			ticketService.CreateTicket(ticket);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				ticketService.CreateTicket(ticket);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // PUT: api/Ticket/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]TicketDTO ticket)
         {
-			ticketService.UpdateTicket(id, ticket);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				ticketService.UpdateTicket(id, ticket);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}
         }
         
         // DELETE: api/ApiWithActions/5

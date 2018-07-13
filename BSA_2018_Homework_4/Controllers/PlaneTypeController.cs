@@ -18,35 +18,64 @@ namespace BSA_2018_Homework_4.Controllers
 		public PlaneTypeController(IPlaneTypeService planeTypeService)
 		{
 			this.planeTypeService = planeTypeService;
-
 		}
 
         // GET: api/PlaneType
         [HttpGet]
         public IEnumerable<PlaneTypeDTO> Get()
         {
-            return planeTypeService.GetPlaneTypeCollection();
-        }
+            IEnumerable<PlaneTypeDTO> temp = planeTypeService.GetPlaneTypeCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
 
         // GET: api/PlaneType/5
         [HttpGet("{id}")]
         public PlaneTypeDTO Get(int id)
         {
-            return planeTypeService.GetPlaneTypeById(id);
-        }
+            PlaneTypeDTO temp = planeTypeService.GetPlaneTypeById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
         
         // POST: api/PlaneType
         [HttpPost]
         public void Post([FromBody]PlaneTypeDTO planeType)
         {
-			planeTypeService.CreatePlaneType(planeType);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				planeTypeService.CreatePlaneType(planeType);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // PUT: api/PlaneType/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]PlaneTypeDTO planeType)
         {
-			planeTypeService.UpdatePlaneType(id, planeType);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				planeTypeService.UpdatePlaneType(id, planeType);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // DELETE: api/ApiWithActions/5

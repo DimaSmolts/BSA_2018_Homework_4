@@ -24,28 +24,58 @@ namespace BSA_2018_Homework_4.Controllers
         [HttpGet]
         public IEnumerable<StewardessDTO> Get()
         {
-            return stewardessService.GetStewardessCollection();
-        }
+            IEnumerable<StewardessDTO> temp = stewardessService.GetStewardessCollection();
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
 
         // GET: api/Stewardess/5
         [HttpGet("{id}")]
         public StewardessDTO Get(int id)
         {
-			return stewardessService.GetStewardessById(id);
-        }
+			StewardessDTO temp = stewardessService.GetStewardessById(id);
+
+			if (temp != null)
+				Response.StatusCode = 200;
+			else
+				Response.StatusCode = 404;
+
+			return temp;
+		}
         
         // POST: api/Stewardess
         [HttpPost]
         public void Post([FromBody]StewardessDTO stewardess)
         {
-			stewardessService.CreateStewardess(stewardess);
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				stewardessService.CreateStewardess(stewardess);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}		
         }
         
         // PUT: api/Stewardess/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]StewardessDTO stewardess)
-        {
-			stewardessService.UpdateStewardess(id, stewardess);
+		{
+			if (ModelState.IsValid)
+			{
+				Response.StatusCode = 200;
+				stewardessService.UpdateStewardess(id, stewardess);
+			}
+			else
+			{
+				Response.StatusCode = 400;
+			}			
         }
         
         // DELETE: api/ApiWithActions/5
