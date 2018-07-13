@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			TakeOff temp = takeoffs.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
+			{
 				takeoffs.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(TakeOff item)
@@ -54,13 +56,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id, TakeOff item)
 		{
-			TakeOff temp = takeoffs.Find(t => t.Id == id);
+			TakeOff temp = takeoffs.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
 			{
-				takeoffs.Remove(temp);
-				takeoffs.Add(item);
+				temp.Id = item.Id;
+				temp.FlightNum = item.FlightNum;
+				temp.Date = item.Date;
+				temp.CrewId = item.CrewId;
+				temp.PlaneId = item.PlaneId;
+
+				SaveChanges();
 			}
-			SaveChanges();
 		}
 	}
 }

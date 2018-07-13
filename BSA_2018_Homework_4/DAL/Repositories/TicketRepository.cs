@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			Ticket temp = tickets.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
+			{
 				tickets.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(Ticket item)
@@ -54,13 +56,15 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id, Ticket item)
 		{
-			Ticket temp = tickets.Find(t => t.Id == id);
+			Ticket temp = tickets.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
 			{
-				tickets.Remove(temp);
-				tickets.Add(item);
+				temp.Id = item.Id;
+				temp.Price = item.Price;
+				temp.FlightNum = item.FlightNum;
+
+				SaveChanges();
 			}
-			SaveChanges();
 		}
 	}
 }

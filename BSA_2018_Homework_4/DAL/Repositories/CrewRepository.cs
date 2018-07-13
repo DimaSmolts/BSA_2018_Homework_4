@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			Crew temp = crews.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
+			{
 				crews.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(Crew item)
@@ -54,13 +56,15 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id, Crew item)
 		{
-			Crew temp = crews.Find(t => t.Id == id);
+			Crew temp = crews.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
 			{
-				crews.Remove(temp);
-				crews.Add(item);
-			}
-			SaveChanges();
+				temp.Id = item.Id;
+				temp.PilotId = item.PilotId;
+				temp.StewardessIds = item.StewardessIds;
+
+				SaveChanges();
+			}			
 		}
 	}
 }

@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			Flight temp = flights.FirstOrDefault(t => t.FlightNum == id);
 			if (temp != null)
+			{
 				flights.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(Flight item)
@@ -54,13 +56,18 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id,Flight item)
 		{
-			Flight temp = flights.Find(t => t.FlightNum == id);
+			Flight temp = flights.FirstOrDefault(t => t.FlightNum == id);
 			if (temp != null)
 			{
-				flights.Remove(temp);
-				flights.Add(item);
-			}
-			SaveChanges();
+				temp.FlightNum = item.FlightNum;
+				temp.DeperturePlace = item.DeperturePlace;
+				temp.DepartureTime = item.DepartureTime;
+				temp.ArrivalPlace = item.ArrivalPlace;
+				temp.ArrivalTime = item.ArrivalTime;
+				temp.TicketId = item.TicketId;
+
+				SaveChanges();
+			}			
 		}
 	}
 }
