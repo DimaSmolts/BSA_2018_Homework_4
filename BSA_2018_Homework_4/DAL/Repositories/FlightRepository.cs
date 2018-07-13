@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public Flight Get(int id)
 		{
-			return flights.First(t => t.FlightNum == id);
+			return flights.FirstOrDefault(t => t.FlightNum == id);
 		}
 
 		public void Delete(int id)

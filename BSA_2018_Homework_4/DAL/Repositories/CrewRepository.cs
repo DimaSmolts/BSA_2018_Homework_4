@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public Crew Get(int id)
 		{
-			return crews.First(t => t.Id == id);
+			return crews.FirstOrDefault(t => t.Id == id);
 		}
 
 		public void Delete(int id)

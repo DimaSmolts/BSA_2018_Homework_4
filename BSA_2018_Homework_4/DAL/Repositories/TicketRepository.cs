@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public Ticket Get(int id)
 		{
-			return tickets.First(t => t.Id == id);
+			return tickets.FirstOrDefault(t => t.Id == id);
 		}
 
 		public void Delete(int id)

@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public Plane Get(int id)
 		{
-			return planes.First(t => t.Id == id);
+			return planes.FirstOrDefault(t => t.Id == id);
 		}
 
 		public void Delete(int id)

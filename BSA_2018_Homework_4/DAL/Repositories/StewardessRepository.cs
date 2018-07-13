@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public Stewardess Get(int id)
 		{
-			return stewardesses.First(t => t.Id == id);
+			return stewardesses.FirstOrDefault(t => t.Id == id);
 		}
 
 		public void Delete(int id)

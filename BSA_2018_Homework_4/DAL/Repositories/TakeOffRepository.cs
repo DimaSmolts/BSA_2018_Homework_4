@@ -35,7 +35,7 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public TakeOff Get(int id)
 		{
-			return takeoffs.First(t => t.Id == id);
+			return takeoffs.FirstOrDefault(t => t.Id == id);
 		}
 
 		public void Delete(int id)
