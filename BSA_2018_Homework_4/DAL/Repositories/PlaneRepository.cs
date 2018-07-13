@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			Plane temp = planes.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
+			{
 				planes.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(Plane item)
@@ -54,13 +56,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id, Plane item)
 		{
-			Plane temp = planes.Find(t => t.Id == id);
+			Plane temp = planes.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
 			{
-				planes.Remove(temp);
-				planes.Add(item);
-			}
-			SaveChanges();
+				temp.Id = item.Id;
+				temp.Name = item.Name;
+				temp.Type = item.Type;
+				temp.Made = item.Made;
+				temp.Exploitation = item.Exploitation;
+
+				SaveChanges();
+			}			
 		}
 	}
 }

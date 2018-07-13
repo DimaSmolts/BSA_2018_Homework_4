@@ -42,8 +42,10 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 		{
 			Stewardess temp = stewardesses.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
+			{
 				stewardesses.Remove(temp);
-			SaveChanges();
+				SaveChanges();
+			}				
 		}
 
 		public void Create(Stewardess item)
@@ -54,13 +56,16 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public void Update(int id, Stewardess item)
 		{
-			Stewardess temp = stewardesses.Find(t => t.Id == id);
+			Stewardess temp = stewardesses.FirstOrDefault(t => t.Id == id);
 			if (temp != null)
 			{
-				stewardesses.Remove(temp);
-				stewardesses.Add(item);
+				temp.Id = item.Id;
+				temp.Name = item.Name;
+				temp.Surname = item.Surname;
+				temp.Birth = item.Birth;
+
+				SaveChanges();
 			}
-			SaveChanges();
 		}
 	}
 }
