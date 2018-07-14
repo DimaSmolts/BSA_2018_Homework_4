@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public CrewRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\crews.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				crews = (List<Crew>)serializer.Deserialize(file, typeof(List<Crew>));
-			}
+		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\crews.json"))
+			//{
+			//	JsonSerializer serializer = new JsonSerializer();
+			//	crews = (List<Crew>)serializer.Deserialize(file, typeof(List<Crew>));
+			//}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\crews.json",
-				JsonConvert.SerializeObject(crews));
+		//	File.WriteAllText(Environment.CurrentDirectory + @"\Data\crews.json",
+			//	JsonConvert.SerializeObject(crews));
 		}
 
 		public List<Crew> GetAll()

@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public PlaneTypeRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\planetypes.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				planetypes = (List<PlaneType>)serializer.Deserialize(file, typeof(List<PlaneType>));
-			}
+		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\planetypes.json"))
+			//{
+		//		JsonSerializer serializer = new JsonSerializer();
+		//		planetypes = (List<PlaneType>)serializer.Deserialize(file, typeof(List<PlaneType>));
+		//	}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\planetypes.json",
-				JsonConvert.SerializeObject(planetypes));
+		//	File.WriteAllText(Environment.CurrentDirectory + @"\Data\planetypes.json",
+			//	JsonConvert.SerializeObject(planetypes));
 		}
 
 		public List<PlaneType> GetAll()

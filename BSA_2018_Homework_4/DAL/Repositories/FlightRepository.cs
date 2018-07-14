@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public FlightRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\flights.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>));
-			}
+		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\flights.json"))
+		//	{
+			//	JsonSerializer serializer = new JsonSerializer();
+			//	flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>));
+			//}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\flights.json",
-				JsonConvert.SerializeObject(flights));
+			//File.WriteAllText(Environment.CurrentDirectory + @"\Data\flights.json",
+			//	JsonConvert.SerializeObject(flights));
 		}
 
 		public List<Flight> GetAll()
