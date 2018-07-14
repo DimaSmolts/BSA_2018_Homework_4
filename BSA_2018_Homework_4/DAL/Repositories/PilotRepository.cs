@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public PilotRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\pilots.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				pilots = (List<Pilot>)serializer.Deserialize(file, typeof(List<Pilot>));
-			}
+			//using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\pilots.json"))
+			//{
+			//	JsonSerializer serializer = new JsonSerializer();
+			//	pilots = (List<Pilot>)serializer.Deserialize(file, typeof(List<Pilot>));
+			//}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\pilots.json",
-				JsonConvert.SerializeObject(pilots));
+			//File.WriteAllText(Environment.CurrentDirectory + @"\Data\pilots.json",
+			//	JsonConvert.SerializeObject(pilots));
 		}
 
 		public List<Pilot> GetAll()

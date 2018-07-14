@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public TicketRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\tickets.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				tickets = (List<Ticket>)serializer.Deserialize(file, typeof(List<Ticket>));
-			}
+			//using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\tickets.json"))
+			//{
+		//		JsonSerializer serializer = new JsonSerializer();
+		//		tickets = (List<Ticket>)serializer.Deserialize(file, typeof(List<Ticket>));
+		//	}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\tickets.json",
-				JsonConvert.SerializeObject(tickets));
+		//	File.WriteAllText(Environment.CurrentDirectory + @"\Data\tickets.json",
+		//		JsonConvert.SerializeObject(tickets));
 		}
 
 		public List<Ticket> GetAll()

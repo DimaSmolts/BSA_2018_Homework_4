@@ -15,17 +15,17 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public StewardessRepository()
 		{
-			using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\stewardesses.json"))
-			{
-				JsonSerializer serializer = new JsonSerializer();
-				stewardesses = (List<Stewardess>)serializer.Deserialize(file, typeof(List<Stewardess>));
-			}
+		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\stewardesses.json"))
+		//	{
+		//		JsonSerializer serializer = new JsonSerializer();
+		//		stewardesses = (List<Stewardess>)serializer.Deserialize(file, typeof(List<Stewardess>));
+		//	}
 		}
 
 		public void SaveChanges()
 		{
-			File.WriteAllText(Environment.CurrentDirectory + @"\Data\stewardesses.json",
-				JsonConvert.SerializeObject(stewardesses));
+			//File.WriteAllText(Environment.CurrentDirectory + @"\Data\stewardesses.json",
+			//	JsonConvert.SerializeObject(stewardesses));
 		}
 
 		public List<Stewardess> GetAll()

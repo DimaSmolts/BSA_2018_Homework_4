@@ -9,6 +9,6 @@ namespace BSA_2018_Homework_4.DAL.Models
 	{
 		public int Id { get; set; }
 		public decimal Price { get; set; }
-		public int FlightNum { get; set; }
+		public Flight FlightNum { get; set; }
 	}
 }
