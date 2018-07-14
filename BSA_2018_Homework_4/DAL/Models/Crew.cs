@@ -8,7 +8,7 @@ namespace BSA_2018_Homework_4.DAL.Models
 	public class Crew
 	{
 		public int Id { get; set; }
-		public int PilotId { get; set; }
-		public int[] StewardessIds { get; set; }
+		public Pilot PilotId { get; set; }
+		public Stewardess[] StewardessIds { get; set; }
 	}
 }
