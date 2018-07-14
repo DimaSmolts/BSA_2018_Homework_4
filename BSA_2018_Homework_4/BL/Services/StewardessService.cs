@@ -12,36 +12,36 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class StewardessService : IStewardessService
     {
-		private IStewardessRepository stewardessRepo;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public StewardessService(IStewardessRepository stewardessRepo)
+		public StewardessService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.stewardessRepo = stewardessRepo;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreateStewardess(StewardessDTO item)
 		{
-			stewardessRepo.Create(Mapper.Map<StewardessDTO, Stewardess>(item));
+			IunitOfWork.StewardessRepository.Create(Mapper.Map<StewardessDTO, Stewardess>(item));
 		}
 
 		public void DeleteStewardessById(int id)
 		{
-			stewardessRepo.Delete(id);
+			IunitOfWork.StewardessRepository.Delete(id);
 		}
 
 		public StewardessDTO GetStewardessById(int id)
 		{
-			return Mapper.Map<Stewardess,StewardessDTO>(stewardessRepo.Get(id));
+			return Mapper.Map<Stewardess,StewardessDTO>(IunitOfWork.StewardessRepository.Get(id));
 		}
 
 		public List<StewardessDTO> GetStewardessCollection()
 		{
-			return Mapper.Map<List<Stewardess>,List<StewardessDTO>>(stewardessRepo.GetAll());
+			return Mapper.Map<List<Stewardess>,List<StewardessDTO>>(IunitOfWork.StewardessRepository.GetAll());
 		}
 
 		public void UpdateStewardess(int id, StewardessDTO item)
 		{
-			stewardessRepo.Update(id,Mapper.Map<StewardessDTO,Stewardess>(item));
+			IunitOfWork.StewardessRepository.Update(id,Mapper.Map<StewardessDTO,Stewardess>(item));
 		}
 	}
 }

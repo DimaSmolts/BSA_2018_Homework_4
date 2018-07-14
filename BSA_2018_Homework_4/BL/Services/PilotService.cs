@@ -12,36 +12,37 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class PilotService : IPilotService
     {
-		private IPilotRepository pilotRepo;
+		//private IPilotRepository pilotRepo;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public PilotService(IPilotRepository pilotRepo)
+		public PilotService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.pilotRepo = pilotRepo;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreatePilot(PilotDTO item)
 		{
-			pilotRepo.Create(Mapper.Map<PilotDTO, Pilot>(item));
+			IunitOfWork.PilotRepository.Create(Mapper.Map<PilotDTO, Pilot>(item));
 		}
 
 		public void DeletePilotById(int id)
 		{
-			pilotRepo.Delete(id);
+			IunitOfWork.PilotRepository.Delete(id);
 		}
 
 		public PilotDTO GetPilotById(int id)
 		{
-			return Mapper.Map<Pilot,PilotDTO>(pilotRepo.Get(id));
+			return Mapper.Map<Pilot,PilotDTO>(IunitOfWork.PilotRepository.Get(id));
 		}
 
 		public List<PilotDTO> GetPilotCollection()
 		{
-			return Mapper.Map<List<Pilot>, List<PilotDTO>>(pilotRepo.GetAll());
+			return Mapper.Map<List<Pilot>, List<PilotDTO>>(IunitOfWork.PilotRepository.GetAll());
 		}
 
 		public void UpdatePilot(int id, PilotDTO item)
 		{
-			pilotRepo.Update(id, Mapper.Map<PilotDTO, Pilot>(item));
+			IunitOfWork.PilotRepository.Update(id, Mapper.Map<PilotDTO, Pilot>(item));
 		}
 	}
 }

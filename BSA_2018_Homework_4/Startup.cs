@@ -49,6 +49,16 @@ namespace BSA_2018_Homework_4
 			services.AddSingleton<DAL.RepositoryInterfaces.ICrewRepository, DAL.Repositories.CrewRepository>();
 
 
+
+
+
+
+			services.AddSingleton<DAL.IUnitOfWork, DAL.UnitOfWork>();
+
+
+
+
+
 			Mapper.Initialize(cfg =>
 			{
 				cfg.CreateMap<DAL.Models.Plane, DTOs.PlaneDTO>();
@@ -60,8 +70,20 @@ namespace BSA_2018_Homework_4
 				cfg.CreateMap<DAL.Models.Ticket, DTOs.TicketDTO>();
 				cfg.CreateMap<DTOs.TicketDTO, DAL.Models.Ticket>();
 
+
+
+
+
+
 				cfg.CreateMap<DAL.Models.Crew, DTOs.CrewDTO>();
+					//.ForMember( cDTO => cDTO.StewardessIds,
+							//	c => c.MapFrom(from i in ));
 				cfg.CreateMap<DTOs.CrewDTO, DAL.Models.Crew>();
+
+
+
+
+
 
 				cfg.CreateMap<DAL.Models.Pilot, DTOs.PilotDTO>();
 				cfg.CreateMap<DTOs.PilotDTO, DAL.Models.Pilot>();

@@ -12,36 +12,36 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class PlaneTypeService : IPlaneTypeService
     {
-		private IPlaneTypeRepository planeTypeRepository;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public PlaneTypeService(IPlaneTypeRepository planeTypeRepository)
+		public PlaneTypeService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.planeTypeRepository = planeTypeRepository;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreatePlaneType(PlaneTypeDTO item)
 		{
-			planeTypeRepository.Create(Mapper.Map<PlaneTypeDTO,PlaneType>(item));
+			IunitOfWork.PlaneTypeRepository.Create(Mapper.Map<PlaneTypeDTO,PlaneType>(item));
 		}
 
 		public void DeletePlaneType(int id)
 		{
-			planeTypeRepository.Delete(id);
+			IunitOfWork.PlaneTypeRepository.Delete(id);
 		}
 
 		public PlaneTypeDTO GetPlaneTypeById(int id)
 		{
-			return Mapper.Map<PlaneType,PlaneTypeDTO>(planeTypeRepository.Get(id));
+			return Mapper.Map<PlaneType,PlaneTypeDTO>(IunitOfWork.PlaneTypeRepository.Get(id));
 		}
 
 		public List<PlaneTypeDTO> GetPlaneTypeCollection()
 		{
-			return Mapper.Map<List<PlaneType>, List<PlaneTypeDTO>>(planeTypeRepository.GetAll());
+			return Mapper.Map<List<PlaneType>, List<PlaneTypeDTO>>(IunitOfWork.PlaneTypeRepository.GetAll());
 		}
 
 		public void UpdatePlaneType(int id, PlaneTypeDTO item)
 		{
-			planeTypeRepository.Update(id, Mapper.Map<PlaneTypeDTO, PlaneType>(item));
+			IunitOfWork.PlaneTypeRepository.Update(id, Mapper.Map<PlaneTypeDTO, PlaneType>(item));
 		}
 	}
 }

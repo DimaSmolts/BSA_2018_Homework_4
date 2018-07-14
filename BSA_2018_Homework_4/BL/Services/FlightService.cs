@@ -12,36 +12,38 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class FlightService : IFlightService
     {
-		private IFlightRepository flightRepository;
+		//private IFlightRepository flightRepository;
 
-		public FlightService(IFlightRepository flightRepository)
+		private DAL.IUnitOfWork IunitOfWork;
+
+		public FlightService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.flightRepository = flightRepository;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreateFlight(FlightDTO item)
 		{
-			flightRepository.Create(Mapper.Map<FlightDTO, Flight>(item));
+			IunitOfWork.FlightRepository.Create(Mapper.Map<FlightDTO, Flight>(item));
 		}
 
 		public void DeleteFlightById(int id)
 		{
-			flightRepository.Delete(id);
+			IunitOfWork.FlightRepository.Delete(id);
 		}
 
 		public FlightDTO GetFlightById(int id)
 		{
-			return Mapper.Map<Flight, FlightDTO>(flightRepository.Get(id)); 
+			return Mapper.Map<Flight, FlightDTO>(IunitOfWork.FlightRepository.Get(id)); 
 		}
 
 		public List<FlightDTO> GetFlightCollection()
 		{
-			return Mapper.Map<List<Flight>, List<FlightDTO>>(flightRepository.GetAll());
+			return Mapper.Map<List<Flight>, List<FlightDTO>>(IunitOfWork.FlightRepository.GetAll());
 		}
 
 		public void UpdateFlight(int id, FlightDTO item)
 		{
-			flightRepository.Update(id,Mapper.Map<FlightDTO, Flight>(item));
+			IunitOfWork.FlightRepository.Update(id,Mapper.Map<FlightDTO, Flight>(item));
 		}
 	}
 }

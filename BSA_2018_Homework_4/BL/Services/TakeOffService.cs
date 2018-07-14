@@ -12,36 +12,36 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class TakeOffService : ITakeOffService
     {
-		private ITakeOffRepository takeOffRepo;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public TakeOffService(ITakeOffRepository takeOffRepo)
+		public TakeOffService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.takeOffRepo = takeOffRepo;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreateTakeOff(TakeOffDTO item)
 		{
-			takeOffRepo.Create(Mapper.Map<TakeOffDTO, TakeOff>(item));
+			IunitOfWork.TakeOffRepository.Create(Mapper.Map<TakeOffDTO, TakeOff>(item));
 		}
 
 		public void DeleteTakeOffById(int id)
 		{
-			takeOffRepo.Delete(id);
+			IunitOfWork.TakeOffRepository.Delete(id);
 		}
 
 		public TakeOffDTO GetTakeOffById(int id)
 		{
-			return Mapper.Map<TakeOff,TakeOffDTO>(takeOffRepo.Get(id));
+			return Mapper.Map<TakeOff,TakeOffDTO>(IunitOfWork.TakeOffRepository.Get(id));
 		}
 
 		public List<TakeOffDTO> GetTakeOffCollection()
 		{
-			return Mapper.Map<List<TakeOff>,List<TakeOffDTO>>(takeOffRepo.GetAll());
+			return Mapper.Map<List<TakeOff>,List<TakeOffDTO>>(IunitOfWork.TakeOffRepository.GetAll());
 		}
 
 		public void UpdateTakeOff(int id, TakeOffDTO item)
 		{
-			takeOffRepo.Update(id, Mapper.Map<TakeOffDTO, TakeOff>(item));
+			IunitOfWork.TakeOffRepository.Update(id, Mapper.Map<TakeOffDTO, TakeOff>(item));
 		}
 	}
 }

@@ -12,36 +12,37 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class CrewService : ICrewService
     {
-		private ICrewRepository crewRepository;
+		//private ICrewRepository crewRepository;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public CrewService(ICrewRepository crewRepository)
+		public CrewService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.crewRepository = crewRepository;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public void CreateCrew(CrewDTO item)
 		{
-			crewRepository.Create(Mapper.Map<CrewDTO,Crew>(item));
+			IunitOfWork.CrewRepository.Create(Mapper.Map<CrewDTO,Crew>(item));
 		}
 
 		public void DeleteCrewById(int id)
 		{
-			crewRepository.Delete(id);
+			IunitOfWork.CrewRepository.Delete(id);
 		}
 
 		public CrewDTO GetCrewById(int id)
 		{
-			return Mapper.Map<Crew, CrewDTO>(crewRepository.Get(id));
+			return Mapper.Map<Crew, CrewDTO>(IunitOfWork.CrewRepository.Get(id));
 		}
 
 		public List<CrewDTO> GetCrewCollection()
 		{
-			return Mapper.Map<List<Crew>, List<CrewDTO>>(crewRepository.GetAll());
+			return Mapper.Map<List<Crew>, List<CrewDTO>>(IunitOfWork.CrewRepository.GetAll());
 		}
 
 		public void UpdateCrew(int id, CrewDTO item)
 		{
-			crewRepository.Update(id,Mapper.Map<CrewDTO, Crew>(item));
+			IunitOfWork.CrewRepository.Update(id,Mapper.Map<CrewDTO, Crew>(item));
 		}
 	}
 }

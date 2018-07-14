@@ -12,32 +12,32 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class TicketService : ITicketService
     {
-		private ITicketRepository ticketRepo;
+		private DAL.IUnitOfWork IunitOfWork;
 
-		public TicketService(ITicketRepository ticketRepo)
+		public TicketService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.ticketRepo = ticketRepo;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public List<TicketDTO> GetTicketCollection()
 		{
-			return Mapper.Map<List<Ticket>, List<TicketDTO>>(ticketRepo.GetAll());
+			return Mapper.Map<List<Ticket>, List<TicketDTO>>(IunitOfWork.TicketRepository.GetAll());
 		}
 		public TicketDTO GetTicketById(int id)
 		{
-			return Mapper.Map<Ticket, TicketDTO>(ticketRepo.Get(id));
+			return Mapper.Map<Ticket, TicketDTO>(IunitOfWork.TicketRepository.Get(id));
 		}
 		public void DeleteTicketById(int id)
 		{
-			ticketRepo.Delete(id);
+			IunitOfWork.TicketRepository.Delete(id);
 		}
 		public void CreateTicket(TicketDTO item)
 		{
-			ticketRepo.Create(Mapper.Map<TicketDTO, Ticket>(item));
+			IunitOfWork.TicketRepository.Create(Mapper.Map<TicketDTO, Ticket>(item));
 		}
 		public void UpdateTicket(int id, TicketDTO item)
 		{
-			ticketRepo.Update(id, Mapper.Map<TicketDTO, Ticket>(item));
+			IunitOfWork.TicketRepository.Update(id, Mapper.Map<TicketDTO, Ticket>(item));
 		}
 	}
 }

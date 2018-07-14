@@ -12,32 +12,34 @@ namespace BSA_2018_Homework_4.BL.Services
 {
     public class PlaneService : IPlaneService
     {
-		private IPlaneRepository planeRepo;
+		//private IPlaneRepository planeRepo;
 
-		public PlaneService(IPlaneRepository planeRepo)
+		private DAL.IUnitOfWork IunitOfWork;
+
+		public PlaneService(DAL.IUnitOfWork IunitOfWork)
 		{
-			this.planeRepo = planeRepo;
+			this.IunitOfWork = IunitOfWork;
 		}
 
 		public List<PlaneDTO> GetPlaneCollection()
 		{
-			return Mapper.Map<List<Plane>, List<PlaneDTO>>(planeRepo.GetAll());
+			return Mapper.Map<List<Plane>, List<PlaneDTO>>(IunitOfWork.PlaneRepository.GetAll());
 		}
 		public PlaneDTO GetPlaneById(int id)
 		{
-			return Mapper.Map<Plane,PlaneDTO>(planeRepo.Get(id));
+			return Mapper.Map<Plane,PlaneDTO>(IunitOfWork.PlaneRepository.Get(id));
 		}
 		public void DeletePlaneById(int id)
 		{
-			planeRepo.Delete(id);
+			IunitOfWork.PlaneRepository.Delete(id);
 		}
 		public void CreatePlane(PlaneDTO item)
 		{
-			planeRepo.Create(Mapper.Map<PlaneDTO, Plane>(item));
+			IunitOfWork.PlaneRepository.Create(Mapper.Map<PlaneDTO, Plane>(item));
 		}
 		public void UpdatePlane(int id, PlaneDTO item)
 		{
-			planeRepo.Update(id, Mapper.Map<PlaneDTO, Plane>(item));
+			IunitOfWork.PlaneRepository.Update(id, Mapper.Map<PlaneDTO, Plane>(item));
 		}
 
 	}
