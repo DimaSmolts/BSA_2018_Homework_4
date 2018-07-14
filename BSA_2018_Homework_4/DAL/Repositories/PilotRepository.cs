@@ -12,9 +12,11 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class PilotRepository : IPilotRepository
     {
 		private List<Pilot> pilots = new List<Pilot>();
+		MyContext db;
 
-		public PilotRepository()
+		public PilotRepository(MyContext db)
 		{
+			this.db = db;
 			//using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\pilots.json"))
 			//{
 			//	JsonSerializer serializer = new JsonSerializer();
@@ -30,43 +32,47 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<Pilot> GetAll()
 		{
-			return pilots;
+			return db.Pilot.ToList();
 		}
 
 		public Pilot Get(int id)
 		{
-			return pilots.FirstOrDefault(t => t.Id == id);
+			return db.Pilot.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			Pilot temp = pilots.FirstOrDefault(t => t.Id == id);
+			Pilot temp = db.Pilot.Find(id);
 			if (temp != null)
 			{
-				pilots.Remove(temp);
-				SaveChanges();
+				db.Pilot.Remove(temp);
 			}				
 		}
 
 		public void Create(Pilot item)
 		{
-			pilots.Add(item);
-			SaveChanges();
+			db.Pilot.Add(item);
 		}
 
 		public void Update(int id, Pilot item)
 		{
-			Pilot temp = pilots.FirstOrDefault(t => t.Id == id);
+			//Pilot temp = pilots.FirstOrDefault(t => t.Id == id);
+			//if (temp != null)
+			//{
+			//	temp.Id = item.Id;
+			//	temp.Name = item.Name;
+			//	temp.Surname = item.Surname;
+			//	temp.Birth = item.Birth;
+				//temp.Experience = item.Experience;
+
+				//SaveChanges();
+			//}
+			Pilot temp = db.Pilot.Find(id);
 			if (temp != null)
 			{
-				temp.Id = item.Id;
-				temp.Name = item.Name;
-				temp.Surname = item.Surname;
-				temp.Birth = item.Birth;
-				temp.Experience = item.Experience;
-
-				SaveChanges();
-			}			
+				db.Pilot.Remove(temp);
+				db.Pilot.Add(item);
+			}
 		}
 	}
 }

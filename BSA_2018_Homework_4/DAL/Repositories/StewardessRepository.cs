@@ -12,9 +12,11 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class StewardessRepository : IStewardessRepository
     {
 		private List<Stewardess> stewardesses = new List<Stewardess>();
+		MyContext db;
 
-		public StewardessRepository()
+		public StewardessRepository(MyContext db)
 		{
+			this.db = db;
 		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\stewardesses.json"))
 		//	{
 		//		JsonSerializer serializer = new JsonSerializer();
@@ -30,41 +32,45 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<Stewardess> GetAll()
 		{
-			return stewardesses;
+			return db.Stewardess.ToList();
 		}
 
 		public Stewardess Get(int id)
 		{
-			return stewardesses.FirstOrDefault(t => t.Id == id);
+			return db.Stewardess.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			Stewardess temp = stewardesses.FirstOrDefault(t => t.Id == id);
+			Stewardess temp = db.Stewardess.Find(id); 
 			if (temp != null)
 			{
-				stewardesses.Remove(temp);
-				SaveChanges();
+				db.Stewardess.Remove(temp);
 			}				
 		}
 
 		public void Create(Stewardess item)
 		{
-			stewardesses.Add(item);
-			SaveChanges();
+			db.Stewardess.Add(item);
 		}
 
 		public void Update(int id, Stewardess item)
 		{
-			Stewardess temp = stewardesses.FirstOrDefault(t => t.Id == id);
+			//Stewardess temp = stewardesses.FirstOrDefault(t => t.Id == id);
+			//if (temp != null)
+			//{
+			//	temp.Id = item.Id;
+			//	temp.Name = item.Name;
+			//	temp.Surname = item.Surname;
+			//	temp.Birth = item.Birth;
+			//
+			//	SaveChanges();
+			//}
+			Stewardess temp = db.Stewardess.Find(id);
 			if (temp != null)
 			{
-				temp.Id = item.Id;
-				temp.Name = item.Name;
-				temp.Surname = item.Surname;
-				temp.Birth = item.Birth;
-
-				SaveChanges();
+				db.Stewardess.Remove(temp);
+				db.Stewardess.Add(item);
 			}
 		}
 	}

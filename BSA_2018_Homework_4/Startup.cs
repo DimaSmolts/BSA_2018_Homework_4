@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace BSA_2018_Homework_4
 {
@@ -49,7 +50,8 @@ namespace BSA_2018_Homework_4
 			services.AddSingleton<DAL.RepositoryInterfaces.ICrewRepository, DAL.Repositories.CrewRepository>();
 
 
-
+			var connection = @"Server=DESKTOP-DMYTRO\SQLEXPRESS;Initial Catalog=Academy;Trusted_Connection=True;ConnectRetryCount=0";
+			services.AddDbContext<DAL.MyContext>(options => options.UseSqlServer(connection));
 
 
 
@@ -109,7 +111,13 @@ namespace BSA_2018_Homework_4
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+			using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+			{
+				var context = serviceScope.ServiceProvider.GetRequiredService<DAL.MyContext>();
+				context.Database.Migrate();
+			}
+
+			app.UseMvc();
         }
     }
 }

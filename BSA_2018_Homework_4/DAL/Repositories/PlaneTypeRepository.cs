@@ -12,9 +12,12 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class PlaneTypeRepository : IPlaneTypeRepository
     {
 		private List<PlaneType> planetypes = new List<PlaneType>();
+		MyContext db;
 
-		public PlaneTypeRepository()
+		public PlaneTypeRepository(MyContext db)
 		{
+			this.db = db;
+
 		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\planetypes.json"))
 			//{
 		//		JsonSerializer serializer = new JsonSerializer();
@@ -30,42 +33,48 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<PlaneType> GetAll()
 		{
-			return planetypes;
+			return db.PlaneType.ToList();
 		}
 
 		public PlaneType Get(int id)
 		{
-			return planetypes.FirstOrDefault(t => t.Id == id);
+			return db.PlaneType.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			PlaneType temp = planetypes.FirstOrDefault(t => t.Id == id);
+			PlaneType temp = db.PlaneType.Find(id);
 			if (temp != null)
 			{
-				planetypes.Remove(temp);
-				SaveChanges();
+				db.PlaneType.Remove(temp);
 			}				
 		}
 
 		public void Create(PlaneType item)
 		{
-			planetypes.Add(item);
-			SaveChanges();
+			db.PlaneType.Add(item);
 		}
 
 		public void Update(int id, PlaneType item)
 		{
-			PlaneType temp = planetypes.FirstOrDefault(t => t.Id == id);
+			//PlaneType temp = planetypes.FirstOrDefault(t => t.Id == id);
+			//if (temp != null)
+			//{
+			//	temp.Id = item.Id;
+			//	temp.Model = item.Model;
+			//	temp.Places = item.Places;
+			//	temp.CarryCapacity = item.CarryCapacity;
+			//
+			//SaveChanges();
+			//}
+
+			PlaneType temp = db.PlaneType.Find(id);
 			if (temp != null)
 			{
-				temp.Id = item.Id;
-				temp.Model = item.Model;
-				temp.Places = item.Places;
-				temp.CarryCapacity = item.CarryCapacity;
-
-				SaveChanges();
+				db.PlaneType.Remove(temp);
+				db.PlaneType.Add(item);
 			}
+
 		}
 	}
 }

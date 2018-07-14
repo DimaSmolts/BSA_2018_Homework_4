@@ -12,9 +12,11 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class TicketRepository : ITicketRepository
     {
 		private List<Ticket> tickets = new List<Ticket>();
+		MyContext db;
 
-		public TicketRepository()
+		public TicketRepository(MyContext db)
 		{
+			this.db = db;
 			//using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\tickets.json"))
 			//{
 		//		JsonSerializer serializer = new JsonSerializer();
@@ -30,40 +32,44 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<Ticket> GetAll()
 		{
-			return tickets;
+			return db.Ticket.ToList();
 		}
 
 		public Ticket Get(int id)
 		{
-			return tickets.FirstOrDefault(t => t.Id == id);
+			return db.Ticket.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			Ticket temp = tickets.FirstOrDefault(t => t.Id == id);
+			Ticket temp = db.Ticket.Find(id);
 			if (temp != null)
 			{
-				tickets.Remove(temp);
-				SaveChanges();
+				db.Ticket.Remove(temp);
 			}				
 		}
 
 		public void Create(Ticket item)
 		{
-			tickets.Add(item);
-			SaveChanges();
+			db.Ticket.Add(item);
 		}
 
 		public void Update(int id, Ticket item)
 		{
-			Ticket temp = tickets.FirstOrDefault(t => t.Id == id);
+			//Ticket temp = tickets.FirstOrDefault(t => t.Id == id);
+			//if (temp != null)
+			//{
+			//	temp.Id = item.Id;
+			//	temp.Price = item.Price;
+			//temp.FlightNum = item.FlightNum;
+
+			//	SaveChanges();
+			//}
+			Ticket temp = db.Ticket.Find(id);
 			if (temp != null)
 			{
-				temp.Id = item.Id;
-				temp.Price = item.Price;
-				temp.FlightNum = item.FlightNum;
-
-				SaveChanges();
+				db.Ticket.Remove(temp);
+				db.Ticket.Add(item);
 			}
 		}
 	}

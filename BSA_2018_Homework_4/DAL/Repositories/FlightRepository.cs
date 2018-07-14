@@ -12,9 +12,11 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class FlightRepository : IFlightRepository
     {
 		private List<Flight> flights = new List<Flight>();
+		MyContext db;
 
-		public FlightRepository()
+		public FlightRepository(MyContext db)
 		{
+			this.db = db;
 		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\flights.json"))
 		//	{
 			//	JsonSerializer serializer = new JsonSerializer();
@@ -30,44 +32,49 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<Flight> GetAll()
 		{
-			return flights;
+			return db.Flight.ToList();
 		}
 
 		public Flight Get(int id)
 		{
-			return flights.FirstOrDefault(t => t.FlightNum == id);
+			return db.Flight.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			Flight temp = flights.FirstOrDefault(t => t.FlightNum == id);
+			Flight temp = db.Flight.Find(id);
 			if (temp != null)
 			{
-				flights.Remove(temp);
-				SaveChanges();
+				db.Flight.Remove(temp);
 			}				
 		}
 
 		public void Create(Flight item)
 		{
-			flights.Add(item);
-			SaveChanges();
+			db.Flight.Add(item);
 		}
 
 		public void Update(int id,Flight item)
 		{
-			Flight temp = flights.FirstOrDefault(t => t.FlightNum == id);
+		//	Flight temp = flights.FirstOrDefault(t => t.FlightNum == id);
+			//if (temp != null)
+			//{
+			//	temp.FlightNum = item.FlightNum;
+			//	temp.DeperturePlace = item.DeperturePlace;
+			//	temp.DepartureTime = item.DepartureTime;
+				//temp.ArrivalPlace = item.ArrivalPlace;
+				//temp.ArrivalTime = item.ArrivalTime;
+				//temp.TicketId = item.TicketId;
+
+				//SaveChanges();
+			//}
+
+			Flight temp = db.Flight.Find(id);
 			if (temp != null)
 			{
-				temp.FlightNum = item.FlightNum;
-				temp.DeperturePlace = item.DeperturePlace;
-				temp.DepartureTime = item.DepartureTime;
-				temp.ArrivalPlace = item.ArrivalPlace;
-				temp.ArrivalTime = item.ArrivalTime;
-				temp.TicketId = item.TicketId;
-
-				SaveChanges();
-			}			
+				db.Flight.Remove(temp);
+				db.Flight.Add(item);
+			}
 		}
 	}
 }

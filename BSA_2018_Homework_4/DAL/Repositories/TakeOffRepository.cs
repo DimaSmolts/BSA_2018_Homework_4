@@ -12,9 +12,11 @@ namespace BSA_2018_Homework_4.DAL.Repositories
     public class TakeOffRepository : ITakeOffRepository
     {
 		private List<TakeOff> takeoffs = new List<TakeOff>();
+		MyContext db;
 
-		public TakeOffRepository()
+		public TakeOffRepository(MyContext db)
 		{
+			this.db = db;
 		//	using (StreamReader file = File.OpenText(Environment.CurrentDirectory + @"\Data\takeoffs.json"))
 			//{
 		//		JsonSerializer serializer = new JsonSerializer();
@@ -30,43 +32,49 @@ namespace BSA_2018_Homework_4.DAL.Repositories
 
 		public List<TakeOff> GetAll()
 		{
-			return takeoffs;
+			return db.TakeOff.ToList();
 		}
 
 		public TakeOff Get(int id)
 		{
-			return takeoffs.FirstOrDefault(t => t.Id == id);
+			return db.TakeOff.Find(id);
 		}
 
 		public void Delete(int id)
 		{
-			TakeOff temp = takeoffs.FirstOrDefault(t => t.Id == id);
+			TakeOff temp = db.TakeOff.Find(id);
 			if (temp != null)
 			{
-				takeoffs.Remove(temp);
-				SaveChanges();
+				db.TakeOff.Remove(temp);
 			}				
 		}
 
 		public void Create(TakeOff item)
 		{
-			takeoffs.Add(item);
-			SaveChanges();
+			db.Add(item);
 		}
 
 		public void Update(int id, TakeOff item)
 		{
-			TakeOff temp = takeoffs.FirstOrDefault(t => t.Id == id);
+			//TakeOff temp = takeoffs.FirstOrDefault(t => t.Id == id);
+			//if (temp != null)
+			//{
+			//	temp.Id = item.Id;
+			//	temp.FlightNum = item.FlightNum;
+			//	temp.Date = item.Date;
+			//temp.CrewId = item.CrewId;
+			//	temp.PlaneId = item.PlaneId;
+
+			//	SaveChanges();
+			//}
+
+			TakeOff temp = db.TakeOff.Find(id);
 			if (temp != null)
 			{
-				temp.Id = item.Id;
-				temp.FlightNum = item.FlightNum;
-				temp.Date = item.Date;
-				temp.CrewId = item.CrewId;
-				temp.PlaneId = item.PlaneId;
-
-				SaveChanges();
+				db.TakeOff.Remove(temp);
+				db.TakeOff.Add(item);
 			}
+
 		}
 	}
 }

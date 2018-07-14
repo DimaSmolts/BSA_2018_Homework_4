@@ -9,6 +9,8 @@ namespace BSA_2018_Homework_4.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
+		private readonly MyContext context;
+
 		private ICrewRepository crewRepository;
 		private IFlightRepository flightRepository;
 		private IPilotRepository pilotRepository;
@@ -25,7 +27,8 @@ namespace BSA_2018_Homework_4.DAL
 							IPlaneTypeRepository planeTypeRepository,
 							IStewardessRepository stewardessRepository,
 							ITakeOffRepository takeOffRepository,
-							ITicketRepository ticketRepository)
+							ITicketRepository ticketRepository,
+							MyContext context)
 		{
 			this.crewRepository = crewRepository;
 			this.flightRepository = flightRepository;
@@ -35,6 +38,8 @@ namespace BSA_2018_Homework_4.DAL
 			this.stewardessRepository = stewardessRepository;
 			this.takeOffRepository = takeOffRepository;
 			this.ticketRepository = ticketRepository;
+
+			this.context = context;
 		}
 
 		public ICrewRepository CrewRepository
@@ -42,7 +47,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (crewRepository == null)
-					crewRepository = new CrewRepository();
+					crewRepository = new CrewRepository(context);
 				return crewRepository;
 			}
 		}
@@ -51,7 +56,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (flightRepository == null)
-					flightRepository = new FlightRepository();
+					flightRepository = new FlightRepository(context);
 				return flightRepository;
 			}
 		}
@@ -60,7 +65,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (pilotRepository == null)
-					pilotRepository = new PilotRepository();
+					pilotRepository = new PilotRepository(context);
 				return pilotRepository;
 			}
 		}
@@ -69,7 +74,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (planeRepository == null)
-					planeRepository = new PlaneRepository();
+					planeRepository = new PlaneRepository(context);
 				return planeRepository;
 			}
 		}
@@ -78,7 +83,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (planeTypeRepository == null)
-					planeTypeRepository = new PlaneTypeRepository();
+					planeTypeRepository = new PlaneTypeRepository(context);
 				return planeTypeRepository;
 			}
 		}
@@ -87,7 +92,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (stewardessRepository == null)
-					stewardessRepository = new StewardessRepository();
+					stewardessRepository = new StewardessRepository(context);
 				return stewardessRepository;
 			}
 		}
@@ -96,7 +101,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (takeOffRepository == null)
-					takeOffRepository = new TakeOffRepository();
+					takeOffRepository = new TakeOffRepository(context);
 				return takeOffRepository;
 			}
 		}
@@ -105,7 +110,7 @@ namespace BSA_2018_Homework_4.DAL
 			get
 			{
 				if (ticketRepository == null)
-					ticketRepository = new TicketRepository();
+					ticketRepository = new TicketRepository(context);
 				return ticketRepository;
 			}
 		}
